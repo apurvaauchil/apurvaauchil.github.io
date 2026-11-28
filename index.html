@@ -28,7 +28,7 @@
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);border-top:6px solid var(--accent);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--accent) 8%,var(--bg)) 100%);border-top:6px solid var(--accent);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
 a{color:var(--accent)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
 .bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
@@ -36,7 +36,12 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 .bg span.hi{color:var(--hi);opacity:.4}
 .bg svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 @keyframes drift{from{transform:translate(0,0) rotate(0deg)}to{transform:translate(var(--dx),var(--dy)) rotate(var(--r,10deg))}}
-@media (prefers-reduced-motion:reduce){.bg span{animation:none}}
+.bg::before,.bg::after{content:"";position:absolute;border-radius:50%;width:62vmax;height:62vmax}
+.bg::before{left:-22vmax;top:-22vmax;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent) 0%,transparent 65%);animation:glow 30s ease-in-out infinite alternate}
+.bg::after{right:-24vmax;bottom:-24vmax;background:radial-gradient(circle,color-mix(in srgb,var(--hi) 18%,transparent) 0%,transparent 65%);animation:glow 36s ease-in-out infinite alternate-reverse}
+.bg i.dots{position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--accent) 35%,transparent) 1px,transparent 1.5px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse at 50% 15%,#000 0%,transparent 72%);mask-image:radial-gradient(ellipse at 50% 15%,#000 0%,transparent 72%)}
+@keyframes glow{from{transform:translate(0,0) scale(1)}to{transform:translate(7vmax,5vmax) scale(1.18)}}
+@media (prefers-reduced-motion:reduce){.bg span,.bg::before,.bg::after{animation:none}}
 .wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 1.25rem}
 header.top{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0}
 .brand{font:700 1.25rem var(--display);letter-spacing:-.01em}
@@ -76,6 +81,10 @@ h2.s{font:700 clamp(1.6rem,3.5vw,2.2rem)/1.15 var(--display);letter-spacing:-.02
 .chips li{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:.2rem .65rem;font-size:.93rem}
 .groups p{margin:.7rem 0 0;color:var(--muted);font-size:.95rem}
 
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:.6rem 0;border-bottom:1px solid var(--line);font-weight:500}
+.list li:last-child{border-bottom:0}
+.list small{display:block;margin-top:.1rem;color:var(--muted);font-size:.92rem;font-weight:400}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem 2.5rem;margin:0}
 .facts dt{font:700 1.7rem var(--display);letter-spacing:-.02em}
 .facts dd{margin:.1rem 0 0;color:var(--muted);font-size:.95rem}
@@ -101,6 +110,7 @@ footer{padding:2rem 0 3rem;color:var(--muted);font-size:.9rem;border-top:1px sol
 </head>
 <body>
 <div class="bg" aria-hidden="true">
+  <i class="dots"></i>
   <span style="--s:84px;--x:6%;--y:12%;--d:24s;--dx:60px;--dy:40px;--r:12deg"><svg viewBox="0 0 48 48"><path d="M4 6h6l5 24h22l5-17H13"/><circle cx="19" cy="40" r="3"/><circle cx="35" cy="40" r="3"/></svg></span>
   <span style="--s:90px;--x:80%;--y:8%;--d:22s;--dx:-50px;--dy:60px;--r:-10deg"><svg viewBox="0 0 48 48"><path d="M6 42h38"/><rect x="9" y="26" width="6" height="16"/><rect x="21" y="14" width="6" height="28"/><rect x="33" y="22" width="6" height="20"/></svg></span>
   <span style="--s:70px;--x:55%;--y:30%;--d:19s;--dx:-40px;--dy:-50px;--r:14deg"><svg viewBox="0 0 48 48"><circle cx="21" cy="21" r="13"/><path d="M31 31l12 12"/></svg></span>
@@ -121,7 +131,7 @@ footer{padding:2rem 0 3rem;color:var(--muted);font-size:.9rem;border-top:1px sol
       <a class="hide" href="#experience">Experience</a>
       <a class="hide" href="#education">Education</a>
       <a class="hide" href="#certifications">Certifications</a>
-      <a class="hide" href="#work">Research Context</a>
+      <a class="hide" href="#work">Work sample</a>
       <a href="#contact">Contact</a>
       <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Theme</button>
     </nav>
